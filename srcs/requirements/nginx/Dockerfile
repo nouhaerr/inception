@@ -1,5 +1,5 @@
 #From base image: debian
-FROM debian
+FROM debian:bullseye
 
 RUN apt-get update -y && apt-get install nginx openssl -y
 
