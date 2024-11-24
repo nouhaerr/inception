@@ -2,9 +2,9 @@
 
 service mariadb start
 
-mariadb -e "CREATE DATABASE IF NOT EXISTS DB_NAME ;"
-mariadb -e "CREATE USER IF NOT EXISTS 'DB_USER' IDENTIFIED BY 'DB_PASS' ;"
-mariadb -e "GRANT ALL PRIVILEGES ON DB_NAME.* TO 'DB_USER' ;"
+mariadb -e "CREATE DATABASE IF NOT EXISTS $DB_NAME ;"
+mariadb -e "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS' ;"
+mariadb -e "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%' ;"
 mariadb -e "FLUSH PRIVILEGES;"
 
 # mariadb : command-line client for MariaDB. It provides a way to execute SQL queries, manage databases, users, and perform various administrative tasks. 
@@ -12,6 +12,9 @@ mariadb -e "FLUSH PRIVILEGES;"
 
 service mariadb stop
 
-# mysqld_safe
+sleep 5
 
-# Using mysqld_safe is a common practice in Docker containers to ensure that the MariaDB server starts reliably and remains running within the container environment, providing a stable database service for applications running inside the container.
+# Using mysqld_safe is a common practice in Docker containers 
+# to ensure that the MariaDB server starts reliably and remains running within the container environment,
+# providing a stable database service for applications running inside the container.
+mysqld_safe

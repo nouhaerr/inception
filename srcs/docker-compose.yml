@@ -1,0 +1,61 @@
+networks:
+  inception:
+    name: inception
+    driver: bridge
+
+volumes:
+  mariadb_vol:
+    driver: local
+    name : mariadb_vol
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/nerrakeb/data/mariadb
+  wordpress_vol:
+    driver: local
+    name: wordpress_vol
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/nerrakeb/data/wordpress
+
+services:
+  nginx:
+    build: requirements/nginx
+    container_name: nginx
+    ports:
+      - "443:443"
+    networks:
+      - inception
+    volumes:
+      - wordpress_vol:/var/www/html
+    env_file:
+      - ./.env
+    depends_on:
+      - wordpress
+    restart: always
+
+  wordpress:
+    build: requirements/wordpress
+    container_name: wordpress
+    networks:
+      - inception
+    volumes:
+      - wordpress_vol:/var/www/html
+    env_file:
+      - ./.env
+    depends_on:
+      - mariadb
+    restart: always
+
+  mariadb:
+    build: requirements/mariadb
+    container_name: mariadb
+    networks:
+      - inception
+    volumes:
+      - mariadb_vol:/var/lib/mysql
+    env_file:
+      - ./.env
+    restart: always
+
