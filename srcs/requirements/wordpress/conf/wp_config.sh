@@ -24,8 +24,6 @@ wp core install --url=$URL --title=$TITLE --admin_user=$WP_ADMIN --admin_passwor
 
 wp user create $WP_USER $WP_USER_EMAIL --role=subscriber --user_pass=$WP_USER_PASS --allow-root
 
-echo  $URL $DOMAIN_NAME $TITLE $WP_ADMIN $WP_ADMIN_PASS $WP_ADMIN_EMAIL
-
 mkdir /run/php
 
 sed -i 's/^listen = .*/listen = 9000/' /etc/php/7.4/fpm/pool.d/www.conf
