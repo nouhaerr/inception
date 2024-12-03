@@ -9,6 +9,6 @@ COPY conf/file.conf /etc/nginx/conf.d
 
 COPY tools/script.sh /
 
-RUN chmod +x script.sh 
+RUN chmod +x script.sh
 
 CMD ["./script.sh"]
